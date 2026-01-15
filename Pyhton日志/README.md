@@ -161,8 +161,6 @@ logging.warning("Some one delete the log file.", stack_info=True)
 ## 最佳实践
 
 ```python
-import logging
-
 # 获取一个命名日志器
 logger = logging.getLogger('dev_logger')
 logger.setLevel(logging.DEBUG)
@@ -172,20 +170,17 @@ console_handler = logging.StreamHandler()
 console_handler.setLevel(logging.INFO)
 
 # 创建一个文件处理器
-file_handler = logging.FileHandler('dev.log', mode='a', encoding='utf-8')
+file_handler = logging.FileHandler('debug.log', mode='a', encoding='utf-8')
 file_handler.setLevel(logging.DEBUG)
 
 # 设置日志格式
-formatter = logging.Formatter(fmt='%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
+formatter = logging.Formatter(fmt='%(asctime)s - %(name)s - %(levelname)s - %(filename)s:%(lineno)d - %(message)s',
+                              datefmt='%Y-%m-%d %H:%M:%S')
 console_handler.setFormatter(formatter)
 file_handler.setFormatter(formatter)
 
 # 将处理器添加到日志器
 logger.addHandler(console_handler)
 logger.addHandler(file_handler)
-
-# 使用日志器记录日志
-logger.info("This is an info message.")
-logger.debug("This is a debug message.")
 ```
 
